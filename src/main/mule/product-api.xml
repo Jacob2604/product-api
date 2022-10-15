@@ -20,7 +20,7 @@ output application/json
 	productID: "123456",
 	productName: "Mulesoft course",
 	productProvider:"Udemy",
-	productDescrption: "complete the course"
+	productDescrption: "complete the course on monday"
 	
 }]]></ee:set-payload>
 			</ee:message>
