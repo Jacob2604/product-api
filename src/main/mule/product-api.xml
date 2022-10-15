@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="feaf6e28-494a-4db0-81e8-ffb508c5ed67" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="product-apiFlow" doc:id="d18c9f75-5544-4cbe-be8b-af1e316cf6f0" >
+		<http:listener doc:name="Listener" doc:id="e7f43226-237f-4eba-b718-a0faba5f2eee" config-ref="HTTP_Listener_config" path="sample-api"/>
+		<ee:transform doc:name="Transform Message" doc:id="d9bdf2a3-66d5-4fd1-bf5a-cb241a480885" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	
+	productID: "123456",
+	productName: "Mulesoft course",
+	productProvider:"Udemy",
+	productDescrption: "complete the course"
+	
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="e1d4a944-1b94-4e4e-8095-be0742a25b12" message='#["success"]'/>
+	</flow>
+</mule>
